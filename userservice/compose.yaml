@@ -3,7 +3,7 @@ services:
   app:
     image: 'user-service:latest'
     build:
-      context: .
+      context: ./docker/app
     depends_on:
       - db
     environment:
@@ -14,7 +14,9 @@ services:
     ports:
       - "8080"
   db:
-    image: 'postgres:13.1-alpine'
+    image: 'user-postgres:latest'
+    build:
+      context: ./docker/postgres
     restart: always
     container_name: db
     environment:
