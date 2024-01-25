@@ -161,4 +161,4 @@ Before we can test the API and Kong gateway we need to populate the Postgres dat
 
 ## Testing the Spring Boot API and Kong Gateway
 
-- To test the userservicece, import the Postman requests JSON file [UserService.postman_collection.json](/userservice/UserService.postman_collection.json). This Postman Collection contains requests to read Person Entities.
+- To test the userservice, import the Postman requests JSON file [UserService.postman_collection.json](/userservice/UserService.postman_collection.json). This Postman Collection contains requests to read Person Entities.

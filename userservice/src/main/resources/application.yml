@@ -2,4 +2,4 @@ management:
     endpoints:
         web:
             exposure:
-                include: [ "kong" ]
+                include: ["prometheus"]
