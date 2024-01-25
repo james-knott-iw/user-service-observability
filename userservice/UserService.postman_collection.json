@@ -1,0 +1,67 @@
+{
+	"info": {
+		"_postman_id": "231aefc1-bab4-4200-8e47-0a24e3a3d7f4",
+		"name": "UserService",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31344817"
+	},
+	"item": [
+		{
+			"name": "Get Person",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/person/57",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"person",
+						"57"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Person 404",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/person/10000",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"person",
+						"10000"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Person 400",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/person/asdasd",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"person",
+						"asdasd"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
