@@ -2,6 +2,8 @@ package works.integration.userservice.web;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.MeterRegistry;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -21,11 +23,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Tag(name = "User-serviceController", description = "Create, retrieve, update and delete TODO")
 @RestController
-@AllArgsConstructor
 @RequestMapping("/person")
 public class PersonController {
 
     PersonService personService;
+    private final Counter requestCounter;
+
+    public PersonController(PersonService personService, MeterRegistry meterRegistry) {
+        this.personService = personService;
+        this.requestCounter = Counter.builder("http_request_counter")
+                .description("Total number of requests to /person/{id}")
+                .register(meterRegistry);
+    }
 
     @Operation(summary = "Retrieve a Person by Id", description = "Returns a Person based on Id")
     @ApiResponses(value = {
@@ -34,6 +43,7 @@ public class PersonController {
     })
     @GetMapping("/{id}")
     public ResponseEntity<Person> getMethodName(@PathVariable Long id) {
+        requestCounter.increment();
         return new ResponseEntity<>(personService.getPerson(id), HttpStatus.OK);
     }
 
