@@ -141,14 +141,14 @@ Once successfully logged in, you will be brought to the dashboard home page. To 
 - `Password` is the `POSTGRES_PASSWORD` defined in the [db](#db) service.
 - Then click save and you should see the `db` server under `Servers` in the `Object Explorer`.
 
-Now if you look at `Databases`, you will see `compose-postgres` this is the Postgres database holding the `User` table for our Spring Boot API. Here you can explore the Postgres database and manage it using the admin UI.
+Now if you look at `Databases`, you will see `compose-postgres` this is the Postgres database holding the `Users` table for our Spring Boot API. Here you can explore the Postgres database and manage it using the admin UI.
 
 ## Import Mock Data
 
-Once all the containers are up an running, the database can be populated with the mock data in [MOCK_DATA.csv](/userservice/docker/postgres/MOCK_DATA.csv). This can be done by executing a PostgreSQL command on the Postgres container. Where `POSTGRES_USER` is the `POSTGRES_USER` defined in `compose.yaml`. The `-c` flag is the command flag which contains the command to copy the data from `MOCK_DATA.csv` to the `user` table
+Once all the containers are up an running, the database can be populated with the mock data in [MOCK_DATA.csv](/userservice/docker/postgres/MOCK_DATA.csv). This can be done by executing a PostgreSQL command on the Postgres container. Where `POSTGRES_USER` is the `POSTGRES_USER` defined in `compose.yaml`. The `-c` flag is the command flag which contains the command to copy the data from `MOCK_DATA.csv` to the `users` table
 
 ```bash
-docker exec -it db psql -U <POSTGRES_USER> -c "COPY user FROM '/MOCK_DATA.csv' DELIMITER ',' CSV HEADER;"
+docker exec -it db psql -U <POSTGRES_USER> -c "COPY users FROM '/MOCK_DATA.csv' DELIMITER ',' CSV HEADER;"
 ```
 
 In your terminal you should get the following output:
