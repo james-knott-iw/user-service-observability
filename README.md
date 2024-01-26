@@ -1,6 +1,6 @@
-# User Service Project (Build Something Useful)
+# User Service Project with Observability
 
-This repository contains the code for a Spring Boot API, a Dockerfile to containerise the API and a Docker Compose file to orchestrate the Kong gateway, API and PostgresSQL database images.
+This repository contains the code for a Spring Boot API, a Dockerfile to containerise the API and a Docker Compose file to orchestrate the Kong gateway, API and PostgresSQL database images. As well as the monitoring tools Prometheus and Grafana.
 
 ## System Requirements
 
