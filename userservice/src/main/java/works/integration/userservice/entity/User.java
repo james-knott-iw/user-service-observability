@@ -21,36 +21,36 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-@Table(name = "person")
-public class Person {
+@Table(name = "user")
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Schema(description = "The Person's unique Id", accessMode = AccessMode.READ_ONLY)
+    @Schema(description = "The User's unique Id", accessMode = AccessMode.READ_ONLY)
     private long id;
 
     @NotBlank(message = "First name cannot be blank")
     @NonNull
     @Column(nullable = false)
-    @Schema(description = "The Person's first name")
+    @Schema(description = "The User's first name")
     private String firstName;
 
     @NotBlank(message = "Last name cannot be blank")
     @NonNull
     @Column(nullable = false)
-    @Schema(description = "The Person's last name")
+    @Schema(description = "The User's last name")
     private String lastName;
 
     @Min(value = 0, message = "Age cannot be negative")
     @NotBlank(message = "Age cannot be blank")
     @Column(nullable = false)
-    @Schema(description = "The Person's age")
+    @Schema(description = "The User's age")
     private int age;
 
     @NotBlank(message = "Sex cannot be blank")
     @NonNull
     @Column(nullable = false)
-    @Schema(description = "The Person's sex")
+    @Schema(description = "The User's sex")
     private String sex;
 
 }

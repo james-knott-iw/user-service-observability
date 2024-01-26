@@ -2,10 +2,10 @@ _format_version: "3.0"
 _transform: true
 
 services:
-- name: person_service
-  url: http://app:8080/person
+- name: user_service
+  url: http://app:8080/user
   routes:
-  - name: person_route
+  - name: user_route
     paths:
-    - /person
+    - /user
     strip_path: true

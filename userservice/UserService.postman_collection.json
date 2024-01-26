@@ -7,18 +7,18 @@
 	},
 	"item": [
 		{
-			"name": "Get Person",
+			"name": "Get User",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8000/person/57",
+					"raw": "localhost:8000/user/57",
 					"host": [
 						"localhost"
 					],
 					"port": "8000",
 					"path": [
-						"person",
+						"user",
 						"57"
 					]
 				}
@@ -26,18 +26,18 @@
 			"response": []
 		},
 		{
-			"name": "Get Person 404",
+			"name": "Get User 404",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8000/person/10000",
+					"raw": "localhost:8000/user/10000",
 					"host": [
 						"localhost"
 					],
 					"port": "8000",
 					"path": [
-						"person",
+						"user",
 						"10000"
 					]
 				}
@@ -45,18 +45,18 @@
 			"response": []
 		},
 		{
-			"name": "Get Person 400",
+			"name": "Get User 400",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8000/person/asdasd",
+					"raw": "localhost:8000/user/asdasd",
 					"host": [
 						"localhost"
 					],
 					"port": "8000",
 					"path": [
-						"person",
+						"user",
 						"asdasd"
 					]
 				}

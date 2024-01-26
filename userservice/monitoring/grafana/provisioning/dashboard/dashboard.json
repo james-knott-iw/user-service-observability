@@ -28,7 +28,7 @@
                 "type": "prometheus",
                 "uid": "PBFA97CFB590B2093"
             },
-            "description": "A graph displaying the total HTTP requests made to the path /person/{id}",
+            "description": "A graph displaying the total HTTP requests made to the path /user/{id}",
             "fieldConfig": {
                 "defaults": {
                     "color": {
@@ -121,7 +121,7 @@
                     "useBackend": false
                 }
             ],
-            "title": "Total HTTP Requests to /person/{id}",
+            "title": "Total HTTP Requests to /user/{id}",
             "type": "timeseries"
         }
     ],

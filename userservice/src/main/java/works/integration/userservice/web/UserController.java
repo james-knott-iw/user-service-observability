@@ -11,8 +11,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
-import works.integration.userservice.entity.Person;
-import works.integration.userservice.service.PersonService;
+import works.integration.userservice.entity.User;
+import works.integration.userservice.service.UserService;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,28 +23,28 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Tag(name = "User-serviceController", description = "Create, retrieve, update and delete TODO")
 @RestController
-@RequestMapping("/person")
-public class PersonController {
+@RequestMapping("/user")
+public class UserController {
 
-    PersonService personService;
+    UserService userService;
     private final Counter requestCounter;
 
-    public PersonController(PersonService personService, MeterRegistry meterRegistry) {
-        this.personService = personService;
+    public UserController(UserService userService, MeterRegistry meterRegistry) {
+        this.userService = userService;
         this.requestCounter = Counter.builder("http_request_counter")
-                .description("Total number of requests to /person/{id}")
+                .description("Total number of requests to /user/{id}")
                 .register(meterRegistry);
     }
 
-    @Operation(summary = "Retrieve a Person by Id", description = "Returns a Person based on Id")
+    @Operation(summary = "Retrieve a User by Id", description = "Returns a User based on Id")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "404", description = "Person doesn't exist", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
-            @ApiResponse(responseCode = "200", description = "Successful retrieval of Person", content = @Content(schema = @Schema(implementation = Person.class))),
+            @ApiResponse(responseCode = "404", description = "User doesn't exist", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
+            @ApiResponse(responseCode = "200", description = "Successful retrieval of User", content = @Content(schema = @Schema(implementation = User.class))),
     })
     @GetMapping("/{id}")
-    public ResponseEntity<Person> getMethodName(@PathVariable Long id) {
+    public ResponseEntity<User> getMethodName(@PathVariable Long id) {
         requestCounter.increment();
-        return new ResponseEntity<>(personService.getPerson(id), HttpStatus.OK);
+        return new ResponseEntity<>(userService.getUser(id), HttpStatus.OK);
     }
 
 }
