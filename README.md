@@ -52,7 +52,7 @@ mvn clean package -DskipTests
 
 ### Docker Compose File
 
-In this project we need 3 applications running in 3 separate containers. Our Spring Boot API, the Postgres Database and pgAdmin dashboard. A Docker compose file helps to define multiple containers at once. There is one located in [compose.yaml](/userservi/compose.yaml). Each container is defined as a `service`.
+In this project we need 3 applications running in 3 separate containers. Our Spring Boot API, the Postgres Database and pgAdmin dashboard. A Docker compose file helps to define multiple containers at once. There is one located in [compose.yaml](/userservice/compose.yaml). Each container is defined as a `service`.
 
 #### App
 
@@ -102,13 +102,15 @@ The fourth service defined is `kong`. This service runs our Kong gateway contain
 - Ports mappings `8001:8001` and `8444:8444` from the host's ports to container's ports - which listen for requests to the Admin API through HTTP and HTTPS, respectively.
 - Port mapping `8002:8002` maps the host's `8002` port to the container's `8002` port - which is used to listen for HTTP requests for the Kong Manager GUI.
 
+##
+
 #### kong-net
 
-This network is set as the default Docker network. As this is the default network, all containers defined in [compose.yaml](/userservi/compose.yaml) will be on this Docker network and thus, will be able to communicate with each other.
+This network is set as the default Docker network. As this is the default network, all containers defined in [compose.yaml](/userservice/compose.yaml) will be on this Docker network and thus, will be able to communicate with each other.
 
 ## Running the Containers
 
-To run the containers defined in [compose.yaml](/userservi/compose.yaml):
+To run the containers defined in [compose.yaml](/userservice/compose.yaml):
 
 ```bash
 docker-compose up -d
@@ -139,26 +141,40 @@ Once successfully logged in, you will be brought to the dashboard home page. To 
 - `Password` is the `POSTGRES_PASSWORD` defined in the [db](#db) service.
 - Then click save and you should see the `db` server under `Servers` in the `Object Explorer`.
 
-Now if you look at `Databases`, you will see `compose-postgres` this is the Postgres database holding the `Person` table for our Spring Boot API. Here you can explore the Postgres database and manage it using the admin UI.
+Now if you look at `Databases`, you will see `compose-postgres` this is the Postgres database holding the `User` table for our Spring Boot API. Here you can explore the Postgres database and manage it using the admin UI.
 
 ## Import Mock Data
 
+Once all the containers are up an running, the database can be populated with the mock data in [MOCK_DATA.csv](/userservice/docker/postgres/MOCK_DATA.csv). This can be done by executing a PostgreSQL command on the Postgres container. Where `POSTGRES_USER` is the `POSTGRES_USER` defined in `compose.yaml`. The `-c` flag is the command flag which contains the command to copy the data from `MOCK_DATA.csv` to the `user` table
+
 ```bash
-docker exec -it db psql -U compose-postgres -c "COPY person FROM '/MOCK_DATA.csv' DELIMITER ',' CSV HEADER;"
+docker exec -it db psql -U <POSTGRES_USER> -c "COPY user FROM '/MOCK_DATA.csv' DELIMITER ',' CSV HEADER;"
 ```
 
-Before we can test the API and Kong gateway we need to populate the Postgres database with data. The data we will use is located in [MOCK_DATA.csv](/userservi/MOCK_DATA.csv).
+In your terminal you should get the following output:
 
-- After setting up pgAdmin, as described in [Access the pgAdmin Dashboard](#access-the-pgadmin-dashboard), right click the `person` table and select `Import/Export Data`
-- Navigate to the `Options` tab and turn on `Headers`.
-- Navigate back to the General tab and select the `folder icon` in the `Filename` row.
-- This opens a new popup window - select the three dots and select `Upload`
-- This will spawn a new popup window and you can upload the `MOCK_DATA.csv`.
-- Close the `Upload` window and then select the `folder icon` again.
-- Now you will see the `MOCK_DATA.csv`. Select it and press `Select`.
-- Close the `Upload` window and when you are back to the `General` tab select `OK` to import the mock data.
-- There should be a small popup in the bottom left corner of your browser window showing a successful import.
+```bash
+COPY 1000
+```
 
 ## Testing the Spring Boot API and Kong Gateway
 
-- To test the userservice, import the Postman requests JSON file [UserService.postman_collection.json](/userservice/UserService.postman_collection.json). This Postman Collection contains requests to read Person Entities.
+Once all containers are running and the mock data is copied to the database, the User service is ready for testing.To test the User service, import the Postman requests JSON file [UserService.postman_collection.json](/userservice/UserService.postman_collection.json). This Postman Collection contains requests to read User Entities.
+
+## Access Prometheus
+
+The Prometheus is a monitoring and alerting tool. It collects, stores and analyses metrics from various sources. Prometheus offers insights into performance and system health. In this case, the source is our API.
+
+We're using the Prometheus official Docker image in this application. It is defined in [compose.yaml](/demo-api/compose.yaml). The port `9090` on the container is mapped to the host machines port `9090` which allows us to access to the application.
+
+Once the Spring Boot API is packaged and the Docker containers are running the Prometheus dashboard can be accessed at [http://localhost:9090](http://localhost:9090).
+
+## Access Grafana
+
+Grafana is a visualisation, monitoring and troubleshooting tool. IT creates dashboards to visualise metrics from sources like Prometheus. Grafana allows you to customise dashboards with graphs, tables, charts and much more.
+
+Grafana will be running on a container based off the official Docker image. It is defined in [compose.yaml](/demo-api/compose.yaml). The port `3000` on the container is mapped to port `3000` on the host machine. This allows us to access the Grafana application at [http://localhost:3000](http://localhost:3000).
+
+You will be brought to a login screen the first time accessing the dashboard. To login use the username - `admin` and password - `admin`. After logging in the first time you will be prompted to change your login details if you wish.
+
+Once you are at the home page, in the bottom left pane there should be a link to the `User Service Dashboard` which can be accessed at [http://localhost:3000/d/ba61bc3d-436d-4481-9aad-7a857a94efb9/user-service-dashboard](http://localhost:3000/d/ba61bc3d-436d-4481-9aad-7a857a94efb9/user-service-dashboard). This dashboard contains a custom counter that counts the HTTP requests made to the `/user/{id}` endpoint.
