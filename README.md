@@ -145,10 +145,10 @@ Now if you look at `Databases`, you will see `compose-postgres` this is the Post
 
 ## Import Mock Data
 
-Once all the containers are up an running, the database can be populated with the mock data in [MOCK_DATA.csv](/userservice/docker/postgres/MOCK_DATA.csv). This can be done by executing a PostgreSQL command on the Postgres container. Where `POSTGRES_USER` is the `POSTGRES_USER` defined in `compose.yaml`. The `-c` flag is the command flag which contains the command to copy the data from `MOCK_DATA.csv` to the `users` table
+Once all the containers are up an running, the database can be populated with the mock data in [MOCK_DATA.csv](/userservice/docker/postgres/MOCK_DATA.csv). This can be done by executing a PostgreSQL command on the Postgres container. Where `compose-postgres` is the `POSTGRES_USER` defined in `compose.yaml`. The `-c` flag is the command flag which contains the command to copy the data from `MOCK_DATA.csv` to the `users` table
 
 ```bash
-docker exec -it db psql -U <POSTGRES_USER> -c "COPY users FROM '/MOCK_DATA.csv' DELIMITER ',' CSV HEADER;"
+docker exec -it db psql -U compose-postgres -c "COPY users FROM '/MOCK_DATA.csv' DELIMITER ',' CSV HEADER;"
 ```
 
 In your terminal you should get the following output:
