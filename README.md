@@ -17,22 +17,22 @@ This can be done by HTTPS, SSH or GitHubCLI.
 ### HTTPS
 
 ```bash
-git clone https://github.com/james-knott-iw/user-service-project.git
+git clone https://github.com/james-knott-iw/user-service-observability.git
 ```
 
 ### SSH
 
 ```bash
-git clone git@github.com:james-knott-iw/user-service-project.git
+git clone git@github.com:james-knott-iw/user-service-observability.git
 ```
 
 ### GitHubCLI
 
 ```bash
-gh repo clone james-knott-iw/user-service-project
+gh repo clone james-knott-iw/user-service-observability
 ```
 
-Open the `/user-service` directory in a terminal or IDE.
+Open the `/user-service-observability` directory in a terminal or IDE.
 
 ## User-service
 
